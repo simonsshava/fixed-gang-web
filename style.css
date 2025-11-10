@@ -22,7 +22,7 @@ nav {
 }
 
 nav img {
-    width: 150px;
+    width: 100px;
 }
 
 .nav-links {
@@ -362,4 +362,5 @@ h3 {
 
 .fa-heart-o {
     color: #f44336;
+
 }
