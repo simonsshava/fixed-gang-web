@@ -23,6 +23,7 @@ nav {
 
 nav img {
     width: 100px;
+    height: auto;
 }
 
 .nav-links {
@@ -364,3 +365,4 @@ h3 {
     color: #f44336;
 
 }
+
