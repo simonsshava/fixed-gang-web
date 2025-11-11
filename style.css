@@ -109,9 +109,9 @@ nav img {
         display: block;
     }
 
-    .nav-links {
+    .nav-Links {
         position: absolute;
-        background: #f44336;
+        background: #333;
         height: 100vh;
         width: 200px;
         top: 0;
@@ -365,4 +365,5 @@ h3 {
     color: #f44336;
 
 }
+
 
