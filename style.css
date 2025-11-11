@@ -2,6 +2,7 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box; /* ensure padding doesn't break layout */
     font-family: 'Poppins', sans-serif;
 }
 
@@ -21,7 +22,7 @@ nav {
     justify-content: space-between;
     align-items: center;
     position: relative;
-    z-index: 100;
+    z-index: 1100; /* make sure nav sits above other content */
 }
 
 nav img {
@@ -30,51 +31,84 @@ nav img {
 }
 
 /* ----- Navigation Links ----- */
+/* This CSS handles both common markup variants:
+   1) <div class="nav-links"><ul>...</ul></div>
+   2) <ul class="nav-links">...</ul>
+   It removes bullets and ensures the slide-in animation works. */
+
 .nav-links {
     position: fixed;
-    background: rgba(0,0,0,0.9);
+    background: rgba(0,0,0,0.92);
     height: 100vh;
-    width: 200px;
+    width: 220px;
     top: 0;
-    right: -200px;
-    transition: right 0.5s ease;
+    right: -220px;           /* hidden off-screen by default */
+    transition: right 0.45s ease; /* animate slide */
     padding-top: 60px;
-    z-index: 999;
+    z-index: 1200;
     text-align: left;
+
+    /* If .nav-links is a UL, remove default list styling here */
+    list-style: none;
+    padding-left: 30px;
+    padding-right: 20px;
 }
 
-.nav-links.active {
-    right: 0;
-}
-
+/* If .nav-links is a container holding a UL, make sure inner UL is reset */
 .nav-links ul {
     list-style: none;
-    padding: 30px;
+    padding: 0;
+    margin: 0;
 }
 
-.nav-links ul li {
+/* Ensure LI elements are displayed consistently regardless of markup */
+.nav-links li {
     display: block;
     padding: 8px 12px;
+    list-style: none; /* double-safety to remove bullets across browsers */
 }
 
-.nav-links ul li a {
+/* Links inside the nav */
+.nav-links a,
+.nav-links li a {
     color: #fff;
     text-decoration: none;
-    font-size: 13px;
+    font-size: 14px;
+    display: block; /* make entire area clickable/tappable */
+    padding: 6px 4px;
 }
 
-.nav-links ul li::after {
+/* Hover underline bar effect */
+.nav-links li::after,
+.nav-links li a::after {
     content: '';
     width: 0%;
     height: 2px;
     background: #f44336;
     display: block;
-    margin: auto;
-    transition: 0.5s;
+    margin: 6px 0 0 0;
+    transition: width 0.35s ease;
 }
 
-.nav-links ul li:hover::after {
+.nav-links li:hover::after,
+.nav-links li a:hover::after {
     width: 100%;
+}
+
+/* When active, slide nav into view */
+.nav-links.active {
+    right: 0;
+}
+
+/* Ensure close icon inside the nav is visible and tappable */
+.nav-links .fa-times {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    font-size: 20px;
+    color: #fff;
+    cursor: pointer;
+    display: none; /* shown only on small screens via media query below */
 }
 
 /* ----- Text Box ----- */
@@ -118,22 +152,34 @@ nav img {
 }
 
 /* ----- Icons ----- */
+/* Default: hidden on desktop */
 .fa-bars, .fa-times {
     display: none;
 }
 
 /* ----- Responsive Styles ----- */
-@media(max-width: 700px) {
+@media (max-width: 700px) {
     .text-box h1 {
         font-size: 20px;
     }
 
+    /* show hamburger and close icons on mobile */
     .fa-bars, .fa-times {
         display: block;
         color: #fff;
         margin: 10px;
         font-size: 22px;
         cursor: pointer;
+    }
+
+    /* ensure the close icon inside the sliding nav is visible */
+    .nav-links .fa-times {
+        display: block;
+    }
+
+    /* if your hamburger icon is inside nav or nav sibling, adjust spacing */
+    nav .fa-bars {
+        z-index: 1300; /* ensure hamburger is tappable above everything */
     }
 
     .row {
